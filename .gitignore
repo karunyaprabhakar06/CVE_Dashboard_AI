@@ -1,0 +1,30 @@
+# deps
+node_modules/
+
+# builds
+dist/
+build/
+
+# env & secrets
+.env
+.env.*
+!.env.example
+server/credentials.json
+server/.secret-key
+server/secrets.enc
+
+# caches
+server/.cache/
+.cache/
+*.log
+
+# editor / OS
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.tsbuildinfo
+.tsbuild-node/
+
+# claude code
+.claude/

@@ -1,0 +1,16 @@
+node_modules
+dist
+.tsbuild-node
+*.tsbuildinfo
+.env
+.env.*
+server/.cache
+server/credentials.json
+server/.secret-key
+server/secrets.enc
+.git
+.gitignore
+.vscode
+.idea
+.DS_Store
+*.log

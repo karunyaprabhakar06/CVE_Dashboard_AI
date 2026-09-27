@@ -1,0 +1,44 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - HTTP_PROXY=${HTTP_PROXY:-}
+        - HTTPS_PROXY=${HTTPS_PROXY:-}
+        - http_proxy=${HTTP_PROXY:-}
+        - https_proxy=${HTTPS_PROXY:-}
+    container_name: cve-backend
+    restart: unless-stopped
+    environment:
+      PORT: "8787"
+      HTTP_PROXY: ${HTTP_PROXY:-}
+      HTTPS_PROXY: ${HTTPS_PROXY:-}
+      http_proxy: ${HTTP_PROXY:-}
+      https_proxy: ${HTTPS_PROXY:-}
+      NO_PROXY: localhost,127.0.0.1
+      FETCH_TIMEOUT_MS: "60000"
+    volumes:
+      - feed-cache:/app/server/.cache
+      - ./server/credentials.json:/app/server/credentials.json:ro
+      - ./server/.secret-key:/app/server/.secret-key:ro
+      - ./server/secrets.enc:/app/server/secrets.enc:ro
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+      args:
+        - HTTP_PROXY=${HTTP_PROXY:-}
+        - HTTPS_PROXY=${HTTPS_PROXY:-}
+        - http_proxy=${HTTP_PROXY:-}
+        - https_proxy=${HTTPS_PROXY:-}
+    container_name: cve-web
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
+
+volumes:
+  feed-cache:

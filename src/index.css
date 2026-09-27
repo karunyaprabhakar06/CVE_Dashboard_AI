@@ -1,0 +1,259 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background-color: #0b1020;
+  background-image:
+    radial-gradient(1200px 600px at 10% -10%, rgba(124, 58, 237, 0.18), transparent 60%),
+    radial-gradient(1000px 500px at 110% 0%, rgba(0, 217, 255, 0.12), transparent 60%),
+    radial-gradient(800px 400px at 50% 120%, rgba(16, 185, 129, 0.08), transparent 60%);
+  font-family: Inter, system-ui, sans-serif;
+  transition: background-color 0.25s ease;
+}
+
+/* ---------- Light theme overrides ----------
+ * The dashboard is engineered for a dark canvas; light mode keeps the
+ * accent palette but lifts the base surfaces and swaps low-contrast
+ * slate text for darker greys. Achieved via [data-theme="light"] on
+ * <html> (set by store.setTheme). */
+html[data-theme="light"] {
+  color-scheme: light;
+}
+html[data-theme="light"] body {
+  background-color: #eef2ff;
+  background-image:
+    radial-gradient(1200px 600px at 10% -10%, rgba(124, 58, 237, 0.10), transparent 60%),
+    radial-gradient(1000px 500px at 110% 0%, rgba(0, 217, 255, 0.10), transparent 60%),
+    radial-gradient(800px 400px at 50% 120%, rgba(16, 185, 129, 0.08), transparent 60%);
+  color: #0b1020;
+}
+html[data-theme="light"] .bg-bg,
+html[data-theme="light"] .bg-bg\/70,
+html[data-theme="light"] .bg-bg\/95 {
+  background-color: rgba(238, 242, 255, 0.85) !important;
+}
+html[data-theme="light"] .bg-bg-panel,
+html[data-theme="light"] .bg-bg-panel\/60,
+html[data-theme="light"] .bg-bg-panel\/95 {
+  background-color: rgba(255, 255, 255, 0.75) !important;
+}
+html[data-theme="light"] .bg-bg-elev,
+html[data-theme="light"] .bg-bg-elev\/60,
+html[data-theme="light"] .bg-bg-elev\/95 {
+  background-color: #ffffff !important;
+}
+
+/* Floating menus / popovers / dropdowns: ensure they sit on a fully
+ * opaque white surface in light mode so content underneath doesn't
+ * bleed through the backdrop-blur. */
+html[data-theme="light"] .shadow-2xl {
+  box-shadow:
+    0 10px 25px rgba(15, 23, 42, 0.12),
+    0 4px 10px rgba(15, 23, 42, 0.08) !important;
+}
+html[data-theme="light"] .border-white\/5,
+html[data-theme="light"] .border-white\/10,
+html[data-theme="light"] .border-white\/15 {
+  border-color: rgba(15, 23, 42, 0.10) !important;
+}
+html[data-theme="light"] .text-white {
+  color: #0b1020 !important;
+}
+html[data-theme="light"] .text-slate-200,
+html[data-theme="light"] .text-slate-300 {
+  color: #1e293b !important;
+}
+html[data-theme="light"] .text-slate-400 {
+  color: #475569 !important;
+}
+html[data-theme="light"] .text-slate-500 {
+  color: #64748b !important;
+}
+html[data-theme="light"] .glass {
+  background-color: rgba(255, 255, 255, 0.78) !important;
+  border-color: rgba(15, 23, 42, 0.08) !important;
+}
+html[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #cbd5e1, #94a3b8);
+  border: 2px solid #eef2ff;
+}
+
+/* Sidebar / TopBar: sit on a slightly more opaque surface so text doesn't
+ * fight the body gradient bleeding through `backdrop-blur`. */
+html[data-theme="light"] aside.sticky,
+html[data-theme="light"] header.sticky {
+  background-color: rgba(255, 255, 255, 0.85) !important;
+  border-color: rgba(15, 23, 42, 0.08) !important;
+}
+
+/* Cyan accent text loses contrast on white; darken slightly. */
+html[data-theme="light"] .text-cyber-cyan {
+  color: #0891b2 !important;
+}
+html[data-theme="light"] .text-cyber-cyan\/80,
+html[data-theme="light"] .text-cyber-cyan\/70 {
+  color: rgba(8, 145, 178, 0.85) !important;
+}
+html[data-theme="light"] .text-cyber-purple {
+  color: #6d28d9 !important;
+}
+
+/* Force-disable the dark glow on the active sidebar nav in light mode --
+ * it bleeds cyan/purple over white. */
+html[data-theme="light"] .shadow-glow,
+html[data-theme="light"] .shadow-glowPurple,
+html[data-theme="light"] .shadow-glowRed {
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06) !important;
+}
+
+/* Disabled/coming-soon nav items: slate-600 is invisible on light. */
+html[data-theme="light"] .text-slate-600 {
+  color: #94a3b8 !important;
+}
+
+/* Recharts axis ticks + grid: the inline stroke/fill colors were picked
+ * for the dark canvas. Override globally in light mode. */
+html[data-theme="light"] .recharts-cartesian-grid-horizontal line,
+html[data-theme="light"] .recharts-cartesian-grid-vertical line {
+  stroke: #cbd5e1 !important;
+}
+html[data-theme="light"] .recharts-cartesian-axis-tick text,
+html[data-theme="light"] .recharts-text {
+  fill: #475569 !important;
+}
+html[data-theme="light"] .recharts-cartesian-axis line {
+  stroke: #94a3b8 !important;
+}
+
+/* GridOverlay decorative cyan lines: keep them but tone down in light. */
+html[data-theme="light"] .grid-bg {
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.05) 1px, transparent 1px) !important;
+}
+
+/* Inputs: dark bg classes become unreadable on white surfaces. */
+html[data-theme="light"] input[type="text"],
+html[data-theme="light"] input[type="search"] {
+  color: #0b1020 !important;
+}
+html[data-theme="light"] input::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* Popovers / dropdown menus (columns picker, notification panel, etc.):
+ * the dark-theme classes leave them translucent + low-contrast on white. */
+html[data-theme="light"] .bg-bg-elev\/95,
+html[data-theme="light"] .bg-bg-elev\/60,
+html[data-theme="light"] .bg-bg-panel\/95 {
+  background-color: #ffffff !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12),
+    0 2px 6px rgba(15, 23, 42, 0.06) !important;
+}
+/* Tab-bar inside the notification panel (uses bg-bg-elev/40). */
+html[data-theme="light"] .bg-bg-elev\/40 {
+  background-color: #f8fafc !important;
+}
+
+/* Hover states that rely on white overlays do nothing on a white surface. */
+html[data-theme="light"] .hover\:bg-white\/5:hover,
+html[data-theme="light"] .hover\:bg-white\/10:hover {
+  background-color: rgba(15, 23, 42, 0.06) !important;
+}
+
+/* Checkbox / chip borders use border-white/15 which is invisible on white. */
+html[data-theme="light"] .border-white\/15 {
+  border-color: rgba(15, 23, 42, 0.25) !important;
+}
+
+/* Live-feed ticker edge fades. Theme-aware so the dark `bg-panel` color
+ * doesn't bleed onto a light surface. */
+.ticker-fade-l {
+  background: linear-gradient(
+    to right,
+    rgb(var(--ticker-fade-rgb) / 1) 0%,
+    rgb(var(--ticker-fade-rgb) / 0) 100%
+  );
+}
+.ticker-fade-r {
+  background: linear-gradient(
+    to left,
+    rgb(var(--ticker-fade-rgb) / 1) 0%,
+    rgb(var(--ticker-fade-rgb) / 0) 100%
+  );
+}
+html[data-theme="dark"],
+html:not([data-theme]) {
+  --ticker-fade-rgb: 18 22 38; /* bg-panel */
+}
+html[data-theme="light"] {
+  --ticker-fade-rgb: 255 255 255;
+}
+
+@layer components {
+  .glass {
+    @apply bg-bg-panel/60 backdrop-blur-xl border border-white/5 shadow-panel rounded-2xl;
+  }
+  .glass-hover {
+    @apply transition-all duration-300 hover:border-cyber-cyan/30 hover:shadow-glow;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-medium border;
+  }
+  .neon-text {
+    text-shadow: 0 0 14px rgba(0, 217, 255, 0.45);
+  }
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(0, 217, 255, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 217, 255, 0.06) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .scanline::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent, rgba(0, 217, 255, 0.05), transparent);
+    background-size: 100% 6px;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #1f2a40, #131a2c);
+  border-radius: 10px;
+  border: 2px solid #0b1020;
+}
+::-webkit-scrollbar-thumb:hover { background: #00d9ff44; }
+
+/* Selection */
+::selection { background: rgba(0, 217, 255, 0.45); color: #ffffff; text-shadow: none; }
+html[data-theme="light"] ::selection { background: rgba(37, 99, 235, 0.35); color: #0b1020; text-shadow: none; }
+
+/* Severity bars shimmer */
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2.4s linear infinite;
+}
